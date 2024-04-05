@@ -1,0 +1,5 @@
+* Ingenst tabular data and convert to SQL Db
+* Ingest natural language request
+* Convert NLP to SQL via OpenAI API
+* Send SQL request to Db
+* Return results
