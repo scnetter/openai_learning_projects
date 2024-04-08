@@ -35,4 +35,22 @@ def combine_prompts(df, query_prompt):
     return definition+query_init_string
 
 nlp_text = prompt_input()
-combine_prompts(df,nlp_text)
+
+response = openai.Completion.create(
+    model='gpt-3.5-turbo-instruct',
+    prompt = combine_prompts(df, nlp_text),
+    temperature = 0,
+    max_tokens = 150,
+    top_p = 1.0,
+    frequency_penalty = 0,
+    presence_penalty = 0,
+    stop = ['#', ';']
+)
+
+def handle_response(response):
+    query = response['choices'][0]['text']
+    if response.startswith(" "):
+        return "SELECT"+response
+    else:
+        return "SELECT "+response
+    
