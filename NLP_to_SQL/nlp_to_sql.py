@@ -49,8 +49,9 @@ response = openai.Completion.create(
 
 def handle_response(response):
     query = response['choices'][0]['text']
-    if response.startswith(" "):
-        return "SELECT"+response
+    if query.startswith(" "):
+        return "SELECT"+query
     else:
-        return "SELECT "+response
+        return "SELECT "+query
     
+print(handle_response(response))
