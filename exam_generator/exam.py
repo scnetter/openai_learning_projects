@@ -1,6 +1,7 @@
 import openai
 import os
 
+# TODO: Refactor create_view_* to use a boolean to show answers or not.
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
@@ -40,3 +41,21 @@ student_view = create_student_view(test, 4)
 
 for key in student_view:
     print(student_view[key])
+
+
+def extract_answer(test, num_questions):
+    answers = {1: ""}
+    question_number = 1
+    for line in test.split("\n"):
+        if line.startswith("Correct Answer:"):
+            answers[question_number] += line + "\n"
+            if question_number < num_questions:
+                question_number += 1
+                answers[question_number] = ""
+    return answers
+
+
+answers = extract_answer(test, 4)
+
+for key in answers:
+    print(f"{key}: {answers[key]}")
