@@ -59,3 +59,33 @@ answers = extract_answer(test, 4)
 
 for key in answers:
     print(f"{key}: {answers[key]}")
+
+# Now we have the answer and student_view
+
+
+def take_exam(student_view):
+    student_answers = {}
+    for question, question_view in student_view.items():
+        print(question_view)
+        answer = input("Enter your answer: ")
+        student_answers[question] = answer
+
+    return student_answers
+
+
+def grade(correct_answer_dict, student_answers):
+    correct_answers = 0
+    for question, answer in student_answers.items():
+        if answer.upper() == correct_answer_dict[question][16]:
+            correct_answers += 1
+
+    grade = 100 * correct_answers / len(answers)
+
+    if grade < 60:
+        passed = "No Pass"
+    else:
+        passed = "Passed!"
+
+    return f"{correct_answers}/{len(answers)} correct! Yougot {grade} grade, {passed}"
+student_answers = take_exam(student_view)
+grade(answers, student_answers)
